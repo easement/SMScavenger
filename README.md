@@ -39,7 +39,7 @@ A lightweight, text-based scavenger hunt game using Twilio. Players receive clue
 5. **Repeat** until final clue is answered correctly.
 
 6. **Game Completion**  
-   User receives a congratulatory message indicating they’ve finished the hunt.
+   User receives a congratulatory message indicating they've finished the hunt.
 
 ---
 
@@ -114,7 +114,7 @@ A lightweight, text-based scavenger hunt game using Twilio. Players receive clue
    - Database connection
 3. Deploy the webhook
 4. Add clues to your database
-5. Point your Twilio number’s webhook to your server
+5. Point your Twilio number's webhook to your server
 6. Text `START` to begin!
 
 ---
@@ -138,3 +138,152 @@ A lightweight, text-based scavenger hunt game using Twilio. Players receive clue
 ## 📬 Contact
 
 Have questions or want to contribute? Open an issue or contact the creator!
+
+## Prerequisites
+
+- Node.js (v16 or higher)
+- npm (v8 or higher)
+- A Twilio account with:
+  - Account SID
+  - Auth Token
+  - Phone Number
+
+## Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/easement/SMScavenger.git
+cd SMScavenger
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Create environment file:
+```bash
+cp .env.example .env
+```
+
+4. Configure your environment variables in `.env`:
+```
+TWILIO_ACCOUNT_SID=your_account_sid
+TWILIO_AUTH_TOKEN=your_auth_token
+TWILIO_PHONE_NUMBER=your_twilio_phone_number
+DB_PATH=./data/game.db
+PORT=3000
+NODE_ENV=development
+BASE_URL=http://localhost:3000
+ADMIN_API_KEY=your_admin_api_key
+```
+
+5. Create the data directory:
+```bash
+mkdir -p data
+```
+
+## Development
+
+Start the development server with hot reload:
+```bash
+npm run dev
+```
+
+The server will run on `http://localhost:3000` by default.
+
+## Testing
+
+Run the test suite:
+```bash
+npm test
+```
+
+Run tests in watch mode:
+```bash
+npm run test:watch
+```
+
+## Production Build
+
+Build the TypeScript code:
+```bash
+npm run build
+```
+
+Start the production server:
+```bash
+npm start
+```
+
+## API Endpoints
+
+### Admin API
+All admin endpoints require the `x-api-key` header with your `ADMIN_API_KEY`.
+
+- `GET /admin/clues` - List all clues
+- `POST /admin/clues` - Create a new clue
+- `GET /admin/sessions` - List all active sessions
+- `GET /admin/stats` - Get game statistics
+
+### Webhook
+- `POST /webhook` - Twilio SMS webhook endpoint
+
+## Local Development with Twilio
+
+1. Install ngrok:
+```bash
+npm install -g ngrok
+```
+
+2. Start your development server:
+```bash
+npm run dev
+```
+
+3. In a new terminal, start ngrok:
+```bash
+ngrok http 3000
+```
+
+4. Update your Twilio webhook URL to your ngrok URL:
+```
+https://your-ngrok-url/webhook
+```
+
+5. Update your `BASE_URL` in `.env` to match your ngrok URL.
+
+## Code Quality
+
+Run linting:
+```bash
+npm run lint
+```
+
+Fix linting issues:
+```bash
+npm run lint:fix
+```
+
+Format code:
+```bash
+npm run format
+```
+
+## Load Testing
+
+Run load tests:
+```bash
+npm run test:load
+```
+
+Run load tests for specific environment:
+```bash
+npm run test:load:dev  # Development
+npm run test:load:prod # Production
+```
+
+Generate load test report:
+```bash
+npm run test:load:report
+```
